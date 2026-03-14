@@ -9,16 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegisterRequest {
-
-    @NotBlank
-    private String name;
+public class LoginRequest {
 
     @Email
     private String email;
 
     @NotBlank
     private String password;
-
-    private String role;
 }
