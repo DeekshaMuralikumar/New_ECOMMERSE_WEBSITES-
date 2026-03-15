@@ -20,7 +20,7 @@ public class CartController {
 
     @PostMapping("/{userId}")
     public CartResponse addToCart(@PathVariable Long userId,
-                                 @RequestBody CartRequest request) {
+                                  @RequestBody CartRequest request) {
         return cartService.addToCart(userId, request);
     }
 
@@ -28,6 +28,13 @@ public class CartController {
     public CartResponse removeItem(@PathVariable Long userId,
                                    @PathVariable Long productId) {
         return cartService.removeFromCart(userId, productId);
+    }
+
+    @PutMapping("/{userId}/{productId}")
+    public CartResponse updateQuantity(@PathVariable Long userId,
+                                       @PathVariable Long productId,
+                                       @RequestParam int quantity) {
+        return cartService.updateQuantity(userId, productId, quantity);
     }
 
     @DeleteMapping("/clear/{userId}")
