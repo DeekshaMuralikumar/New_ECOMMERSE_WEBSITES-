@@ -1,23 +1,14 @@
 package com.example.ecommerce.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class OrderItemResponse {
-
     private Long productId;
-
     private String productName;
-
     private int quantity;
-
     private double priceAtPurchase;
+    private String productImage;
+    private String categoryName;
+    private int availableQuantity;
 }

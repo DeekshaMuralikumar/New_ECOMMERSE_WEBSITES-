@@ -2,20 +2,13 @@ package com.example.ecommerce.dto.response;
 
 import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+import java.time.LocalDateTime;
+
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class ReviewResponse {
-
     private Long id;
-
-    private String productName;
-
-    private String userName;
-
     private int rating;
-
     private String comment;
+    private String userName;
+    private LocalDateTime createdAt;
 }
