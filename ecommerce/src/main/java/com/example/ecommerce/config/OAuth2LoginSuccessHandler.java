@@ -1,17 +1,16 @@
 package com.example.ecommerce.config;
 
 import com.example.ecommerce.entity.User;
-import com.example.ecommerce.enums.*;
+import com.example.ecommerce.enums.UserRole;
+import com.example.ecommerce.enums.VerificationStatus;
 import com.example.ecommerce.repository.UserRepository;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.access.AuthorizationManagerWebInvocationPrivilegeEvaluator.HttpServletRequestTransformer;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -25,27 +24,25 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
-            HttpServletResponse response,
-            Authentication authentication)
-            throws IOException {
+                                        HttpServletResponse response,
+                                        Authentication authentication) throws IOException {
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        String email = oAuth2User.getAttribute("email");
+        String name = oAuth2User.getAttribute("name");
 
-        OAuth2User user = (OAuth2User) authentication.getPrincipal();
+        User user = userRepository.findByEmail(email).orElseGet(() -> {
+            User newUser = User.builder()
+                    .email(email)
+                    .name(name)
+                    .password("")
+                    .role(UserRole.CUSTOMER)
+                    .verificationStatus(VerificationStatus.APPROVED)
+                    .createdAt(LocalDateTime.now())
+                    .build();
+            return userRepository.save(newUser);
+        });
 
-        String email = user.getAttribute("email");
-        String name = user.getAttribute("name");
-
-        User dbUser = userRepository.findByEmail(email)
-                .orElseGet(() -> userRepository.save(
-                        User.builder()
-                                .email(email)
-                                .name(name)
-                                .role(UserRole.CUSTOMER)
-                                .verificationStatus(VerificationStatus.APPROVED)
-                                .createdAt(LocalDateTime.now())
-                                .build()));
-
-        String token = jwtService.generateToken(email);
-
-        response.sendRedirect("http://localhost:3000/oauth-success?token=" + token);
+        String jwt = jwtService.generateToken(user);
+        response.sendRedirect("http://localhost:3000/oauth2/redirect?token=" + jwt);
     }
 }
