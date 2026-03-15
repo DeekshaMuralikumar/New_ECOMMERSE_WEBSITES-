@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
@@ -32,6 +33,11 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
+    @GetMapping("/{id}")
+    public ProductResponse getProduct(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
+
     @GetMapping
     public List<ProductResponse> getProducts() {
         return productService.getAllProducts();
@@ -46,4 +52,21 @@ public class ProductController {
     public List<ProductResponse> lowStock() {
         return productService.getLowStockProducts();
     }
+
+  @GetMapping("/owner/{ownerId}")
+public List<ProductResponse> getByOwner(@PathVariable Long ownerId) {
+    return productService.getProductsByOwner(ownerId);
+}
+@GetMapping("/admin/all")
+public List<ProductResponse> getAllProductsForAdmin() {
+    return productService.getAllProductsForAdmin();
+}
+
+@GetMapping("/admin/products/pending")
+public List<ProductResponse> getPendingProducts() {
+    return productService.getAllProducts().stream()
+        .filter(p -> "PENDING".equals(p.getVerificationStatus()))
+        .collect(Collectors.toList());
+}
+
 }
