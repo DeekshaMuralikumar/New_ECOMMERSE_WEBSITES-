@@ -1,12 +1,10 @@
 package com.example.ecommerce.service.impl;
 
-import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
-
-import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.OrderItemRepository;
+import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.service.AnalyticsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,24 +23,18 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     @Override
     public Map<String, Object> getProductSales(Long productId) {
-
         Integer totalSold = orderItemRepository.getTotalQuantitySold(productId);
-
         Map<String, Object> data = new HashMap<>();
         data.put("productId", productId);
         data.put("totalSold", totalSold);
-
         return data;
     }
 
     @Override
     public Map<String, Object> getSellerAnalytics(Long sellerId) {
-
         Map<String, Object> data = new HashMap<>();
-
         data.put("sellerId", sellerId);
         data.put("revenueToday", orderRepository.getTodayRevenue());
-
         return data;
     }
 }
