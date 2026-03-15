@@ -1,7 +1,4 @@
 package com.example.ecommerce.service;
-
-// package com.example.backend.service;
-
 public interface AdminService {
 
     void approveSeller(Long sellerId);
