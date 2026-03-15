@@ -10,4 +10,6 @@ public interface AdvertisementService {
 
     long getTotalClicks(Long productId);
 
+    java.util.List<com.example.ecommerce.dto.response.ProductResponse> getActiveAdvertisements();
+
 }
