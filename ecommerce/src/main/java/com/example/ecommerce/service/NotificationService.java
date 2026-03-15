@@ -4,7 +4,7 @@ package com.example.ecommerce.service;
 
 // package com.example.backend.service;
 
-import com.example.backend.entity.Notification;
+import com.example.ecommerce.entity.Notification;
 
 import java.util.List;
 
