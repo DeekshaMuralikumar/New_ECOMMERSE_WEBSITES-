@@ -1,6 +1,5 @@
 package com.example.ecommerce.controller;
 
-import com.example.ecommerce.dto.request.ReviewRequest;
 import com.example.ecommerce.dto.response.ReviewResponse;
 import com.example.ecommerce.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +14,16 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("/{userId}")
-    public ReviewResponse addReview(@PathVariable Long userId,
-                                    @RequestBody ReviewRequest request) {
-        return reviewService.addReview(userId, request);
+    @PostMapping("/{productId}")
+    public ReviewResponse addReview(@PathVariable Long productId,
+                                    @RequestParam Long userId,
+                                    @RequestParam int rating,
+                                    @RequestParam String comment) {
+        return reviewService.addReview(productId, userId, rating, comment);
     }
 
-    @GetMapping("/product/{productId}")
-    public List<ReviewResponse> getReviews(@PathVariable Long productId) {
-        return reviewService.getReviewsByProduct(productId);
+    @GetMapping("/{productId}")
+    public List<ReviewResponse> getProductReviews(@PathVariable Long productId) {
+        return reviewService.getProductReviews(productId);
     }
 }
