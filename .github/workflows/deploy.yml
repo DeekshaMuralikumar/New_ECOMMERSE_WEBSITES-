@@ -44,7 +44,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: backend
+        working-directory: ecommerce
 
     steps:
       - name: Checkout repository
@@ -54,14 +54,14 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 21
           cache: maven
 
       - name: Build Spring Boot
         run: mvn clean install -DskipTests
 
-      - name: Upload backend artifact
+      - name: Upload ecommerce artifact
         uses: actions/upload-artifact@v4
         with:
-          name: backend-jar
-          path: backend/target/*.jar
+          name: ecommerce-jar
+          path: target/*.jar
