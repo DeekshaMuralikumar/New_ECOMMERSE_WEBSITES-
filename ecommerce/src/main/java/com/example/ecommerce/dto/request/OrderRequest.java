@@ -5,17 +5,10 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class OrderRequest {
-
     @NotEmpty
     private List<OrderItemRequest> items;
-
-    private Long addressId;
-
-    private String paymentMethod;
+    private Long addressId;   // optional
+    private String paymentMethod; // "COD" or "STRIPE"
 }
