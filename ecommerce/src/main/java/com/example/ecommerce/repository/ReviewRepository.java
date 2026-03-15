@@ -1,6 +1,6 @@
 package com.example.ecommerce.repository;
 
-import com.example.backend.entity.Review;
+import com.example.ecommerce.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
