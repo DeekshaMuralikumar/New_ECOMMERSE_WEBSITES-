@@ -1,8 +1,11 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.dto.response.ProductResponse;
 import com.example.ecommerce.service.AdvertisementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/ads")
@@ -24,5 +27,15 @@ public class AdvertisementController {
     @GetMapping("/clicks/{productId}")
     public long clicks(@PathVariable Long productId) {
         return advertisementService.getTotalClicks(productId);
+    }
+
+    @PostMapping("/click/{productId}")
+    public void recordClick(@PathVariable Long productId, @RequestParam Long userId) {
+        advertisementService.recordAdClick(productId, userId);
+    }
+
+    @GetMapping("/active")
+    public List<ProductResponse> getActiveAds() {
+        return advertisementService.getActiveAdvertisements();
     }
 }

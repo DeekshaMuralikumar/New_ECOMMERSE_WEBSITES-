@@ -1,72 +1,50 @@
 package com.example.ecommerce.entity;
 
+import com.example.ecommerce.enums.ProductStatus;
+import com.example.ecommerce.enums.VerificationStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.ecommerce.enums.ProductStatus;
-import com.example.ecommerce.enums.VerificationStatus;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Entity
 @Table(name = "products")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     @Column(length = 2000)
     private String description;
 
+    @Column(length = 500)
     private String image;
-
-    private double price;
-
+    private Double price;
     private int availableQuantity;
-
     private double weight;
-
     private int minThreshold;
-
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
-
     @Enumerated(EnumType.STRING)
     private VerificationStatus verificationStatus;
-
     private LocalDateTime createdAt;
 
     @ManyToOne
+    @JsonIgnoreProperties("products")
     private Category category;
 
     @ManyToOne
+    @JsonIgnoreProperties({"products", "orders", "password"})
     private User owner;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<Review> reviews;
 }
