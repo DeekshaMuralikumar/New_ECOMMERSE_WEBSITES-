@@ -1,6 +1,7 @@
 package com.example.ecommerce.repository;
 
-// package com.example.backend.repository;
+
+
 
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.enums.ProductStatus;
