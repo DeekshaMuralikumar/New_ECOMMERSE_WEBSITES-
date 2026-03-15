@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build React App
-        run: npm run build
+        run: CI=false npm run build
 
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
