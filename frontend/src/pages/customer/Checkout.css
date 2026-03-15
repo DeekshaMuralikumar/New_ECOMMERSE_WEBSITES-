@@ -1,0 +1,102 @@
+.checkout-container {
+  padding: 3rem 1rem;
+}
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 992px) {
+  .checkout-grid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+.checkout-section {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+.checkout-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.payment-method-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.payment-option {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.payment-option:hover {
+  background: #f8fafc;
+}
+.payment-option.selected {
+  border-color: var(--color-primary);
+  background: #eff6ff;
+}
+.payment-option input[type="radio"] {
+  margin-right: 1rem;
+  accent-color: var(--color-primary);
+}
+.payment-details {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border);
+}
+.stripe-element-container {
+  background: white;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+.order-items-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.order-item-mini {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.item-mini-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.item-mini-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: #f8fafc;
+}
+.place-order-btn {
+  width: 100%;
+  padding: 1.25rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  background: var(--color-success);
+}
+.place-order-btn:hover {
+  background: #059669;
+}
