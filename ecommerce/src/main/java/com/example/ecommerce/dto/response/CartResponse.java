@@ -1,23 +1,12 @@
 package com.example.ecommerce.dto.response;
 
+import lombok.*;
+
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data @Builder @NoArgsConstructor @AllArgsConstructor
 public class CartResponse {
-
     private Long cartId;
-
     private List<OrderItemResponse> items;
-
     private double totalPrice;
 }
