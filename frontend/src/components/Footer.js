@@ -110,7 +110,7 @@ const Footer = () => {
         </div>
 
         {/* Payment Methods */}
-        <div className="footer-payment">
+        {/* <div className="footer-payment">
           <h3 className="footer-title">We Accept</h3>
           <div className="payment-methods">
             <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="Visa" />
@@ -119,7 +119,7 @@ const Footer = () => {
             <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/discover.png" alt="Discover" />
             <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/paypal.png" alt="PayPal" />
           </div>
-        </div>
+        </div> */}
 
         {/* Newsletter */}
         <div className="footer-newsletter">
