@@ -16,6 +16,7 @@ const UserProfile = () => {
     zipCode: '',
     country: ''
   });
+  
   const [updating, setUpdating] = useState(false);
   const [showRateModal, setShowRateModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
