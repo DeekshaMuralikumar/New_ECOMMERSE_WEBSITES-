@@ -9,19 +9,32 @@ const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('orders');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [address, setAddress] = useState(user?.address || {
+  const [addressData, setAddressData] = useState({
     street: '',
     city: '',
     state: '',
     zipCode: '',
     country: ''
   });
-
   const [updating, setUpdating] = useState(false);
   const [showRateModal, setShowRateModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
+
+  useEffect(() => {
+    if (user?.address) {
+      // Parse the address string (assuming format: "street, city, state, zipCode, country")
+      const parts = user.address.split(',').map(s => s.trim());
+      setAddressData({
+        street: parts[0] || '',
+        city: parts[1] || '',
+        state: parts[2] || '',
+        zipCode: parts[3] || '',
+        country: parts[4] || ''
+      });
+    }
+  }, [user?.address]);
 
   useEffect(() => {
     if (activeTab === 'orders') fetchOrders();
@@ -53,7 +66,6 @@ const UserProfile = () => {
     const reason = prompt('Reason for return:');
     if (!reason) return;
     try {
-      // Check 24h window
       const order = orders.find(o => o.id === orderId);
       const deliveredAt = new Date(order.updatedAt);
       const hoursDiff = (new Date() - deliveredAt) / (1000 * 60 * 60);
@@ -71,13 +83,15 @@ const UserProfile = () => {
 
   const handleUpdateAddress = async () => {
     if (!addressData.street.trim() || !addressData.city.trim() || !addressData.state.trim() ||
-      !addressData.zipCode.trim() || !addressData.country.trim()) {
+        !addressData.zipCode.trim() || !addressData.country.trim()) {
       alert('Please fill in all address fields');
       return;
     }
+    // Combine fields into a single string
+    const fullAddress = `${addressData.street}, ${addressData.city}, ${addressData.state}, ${addressData.zipCode}, ${addressData.country}`;
     setUpdating(true);
     try {
-      await axiosInstance.put(`/users/${user.id}/address`, addressData);
+      await axiosInstance.put(`/users/${user.id}/address`, { address: fullAddress });
       alert('Address updated');
       await updateUser();
     } catch (err) {
