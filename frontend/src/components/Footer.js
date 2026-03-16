@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, CreditCard, Shield, Truck, Clock } from 'lucide-react';
 import './Footer.css';
+import ContactForm from './ContactForm';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -109,8 +110,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Payment Methods */}
-        {/* <div className="footer-payment">
+        {/* Payment Methods
+        <div className="footer-payment">
           <h3 className="footer-title">We Accept</h3>
           <div className="payment-methods">
             <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/visa.png" alt="Visa" />
@@ -123,12 +124,9 @@ const Footer = () => {
 
         {/* Newsletter */}
         <div className="footer-newsletter">
-          <h3 className="footer-title">Subscribe to Our Newsletter</h3>
-          <p>Get the latest updates on new products and upcoming sales</p>
-          <form className="newsletter-form">
-            <input type="email" placeholder="Enter your email" />
-            <button type="submit">Subscribe</button>
-          </form>
+          <h3 className="footer-title">Contact Through Email</h3>
+          <p>Queries and grievances are accepted</p>
+          <ContactForm />
         </div>
 
         {/* Copyright */}

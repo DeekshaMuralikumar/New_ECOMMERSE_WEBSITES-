@@ -11,11 +11,14 @@ import com.example.ecommerce.entity.User;
 import com.example.ecommerce.enums.OrderStatus;
 import com.example.ecommerce.enums.PaymentStatus;
 import com.example.ecommerce.enums.ProductStatus;
+import com.example.ecommerce.enums.UserRole;
 import com.example.ecommerce.enums.VerificationStatus;
 import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.repository.UserRepository;
 import com.example.ecommerce.service.OrderService;
+import com.example.ecommerce.service.WalletService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,27 +87,27 @@ public class OrderServiceImpl implements OrderService {
         return mapToResponse(order);
     }
 
-    @Override
-    public OrderResponse confirmOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow();
-        if (order.getStatus() != OrderStatus.CREATED) {
-            throw new RuntimeException("Order cannot be confirmed from current state: " + order.getStatus());
-        }
-        order.setStatus(OrderStatus.CONFIRMED);
-        order.setUpdatedAt(LocalDateTime.now());
+    // @Override
+    // public OrderResponse confirmOrder(Long orderId) {
+    //     Order order = orderRepository.findById(orderId).orElseThrow();
+    //     if (order.getStatus() != OrderStatus.CREATED) {
+    //         throw new RuntimeException("Order cannot be confirmed from current state: " + order.getStatus());
+    //     }
+    //     order.setStatus(OrderStatus.CONFIRMED);
+    //     order.setUpdatedAt(LocalDateTime.now());
 
-        for (OrderItem item : order.getOrderItems()) {
-            Product product = item.getProduct();
-            product.setAvailableQuantity(product.getAvailableQuantity() - item.getQuantity());
-            productRepository.save(product);
-        }
+    //     for (OrderItem item : order.getOrderItems()) {
+    //         Product product = item.getProduct();
+    //         product.setAvailableQuantity(product.getAvailableQuantity() - item.getQuantity());
+    //         productRepository.save(product);
+    //     }
 
-        // Process commission, etc.
-        return OrderResponse.builder()
-                .id(order.getId())
-                .status(order.getStatus().name())
-                .build();
-    }
+    //     // Process commission, etc.
+    //     return OrderResponse.builder()
+    //             .id(order.getId())
+    //             .status(order.getStatus().name())
+    //             .build();
+    // }
 
     @Override
     public OrderResponse shipOrder(Long orderId) {
@@ -264,5 +267,39 @@ public OrderResponse processRefund(Long orderId, double amount) {
         productRepository.save(product);
     }
     return mapToResponse(order);
+}
+// In OrderServiceImpl
+private final WalletService walletService;
+@Override
+public OrderResponse confirmOrder(Long orderId) {
+    Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new RuntimeException("Order not found"));
+    if (order.getStatus() != OrderStatus.CREATED) {
+        throw new RuntimeException("Order cannot be confirmed from current state: " + order.getStatus());
+    }
+    order.setStatus(OrderStatus.CONFIRMED);
+    order.setUpdatedAt(LocalDateTime.now());
+
+    // Reduce stock and distribute commission
+    for (OrderItem item : order.getOrderItems()) {
+        Product product = item.getProduct();
+        product.setAvailableQuantity(product.getAvailableQuantity() - item.getQuantity());
+        productRepository.save(product);
+
+        double itemTotal = item.getPriceAtPurchase() * item.getQuantity();
+        double sellerShare = itemTotal * 0.9;
+        double adminCommission = itemTotal * 0.1;
+
+        // Credit seller (owner of product)
+        walletService.creditWallet(product.getOwner().getId(), sellerShare);
+        // Credit admin (you need a method to get admin ID, e.g., fetch first admin)
+        Long adminId = userRepository.findUsersByRole(UserRole.ADMIN).get(0).getId();
+        walletService.creditWallet(adminId, adminCommission);
+    }
+
+    return OrderResponse.builder()
+            .id(order.getId())
+            .status(order.getStatus().name())
+            .build();
 }
 }

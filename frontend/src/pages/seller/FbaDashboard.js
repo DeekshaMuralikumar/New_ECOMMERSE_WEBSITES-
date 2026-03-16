@@ -111,6 +111,17 @@ const FbaDashboard = () => {
     } catch { alert("Failed to send message."); }
   };
 
+  const handlePayStorageFee = async () => {
+  if (!window.confirm(`Pay ₹${stats.inventoryFees.toFixed(2)} storage fees?`)) return;
+  try {
+    await axiosInstance.post(`/fba/pay-storage/${user.id}`, { amount: stats.inventoryFees });
+    // Refresh data to show updated balance (you can add a wallet balance to stats)
+    setStats(prev => ({ ...prev, inventoryFees: 0 }));
+    alert("Payment successful!");
+  } catch (err) {
+    alert("Payment failed: " + (err.response?.data?.message || err.message));
+  }
+};
   if (loading) return <div className="container" style={{padding: '4rem'}}>Loading dashboard...</div>;
 
   return (
@@ -139,8 +150,9 @@ const FbaDashboard = () => {
           <div className="stat-details">
             <div className="stat-title">Unpaid Storage Fees</div>
             <div className="stat-value" style={{color: 'var(--color-danger)'}}>₹{stats.inventoryFees.toFixed(2)}</div>
-            <button className="btn btn-outline" style={{marginTop: '0.5rem', padding: '0.2rem 0.5rem', fontSize: '0.8rem'}}>Pay Now</button>
-          </div>
+<button className="btn btn-outline" onClick={handlePayStorageFee} style={{marginTop: '0.5rem', padding: '0.2rem 0.5rem', fontSize: '0.8rem'}}>
+  Pay Now
+</button>          </div>
         </div>
       </div>
 

@@ -15,5 +15,5 @@ public interface WalletService {
     double getBalance(Long userId);
 
     List<Transaction> getTransactions(Long userId);
-
+    void payStorageFee(Long fbaUserId, double amount);
 }

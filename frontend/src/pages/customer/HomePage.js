@@ -74,12 +74,12 @@ const HomePage = () => {
         <div className="features-container">
           <div className="feature-item">
             <Truck size={20} className="feature-icon" />
-            <span>Free Shipping on ₹500+</span>
+            <span>shipping</span>
           </div>
           <div className="feature-divider"></div>
           <div className="feature-item">
             <Shield size={20} className="feature-icon" />
-            <span>100% Secure Payments</span>
+            <span>100% Trustable Products</span>
           </div>
           <div className="feature-divider"></div>
           <div className="feature-item">

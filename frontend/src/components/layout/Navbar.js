@@ -109,8 +109,8 @@ const Navbar = () => {
               to="/wishlist" 
               className={`nav-link ${location.pathname === '/wishlist' ? 'active' : ''}`}
             >
-              <Heart size={18} />
-              <span>Wishlist</span>
+              {/* <Heart size={18} /> */}
+              <span></span>
             </Link>
           )}
         </div>
@@ -183,7 +183,7 @@ const Navbar = () => {
                         <span>My Profile</span>
                       </Link>
                       
-                      <Link to="/settings" className="profile-menu-item">
+                      {/* <Link to="/settings" className="profile-menu-item">
                         <Settings size={18} />
                         <span>Settings</span>
                       </Link>
@@ -191,7 +191,7 @@ const Navbar = () => {
                       <Link to="/help" className="profile-menu-item">
                         <HelpCircle size={18} />
                         <span>Help & Support</span>
-                      </Link>
+                      </Link> */}
                       
                       <div className="profile-menu-divider" />
                       
