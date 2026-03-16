@@ -38,9 +38,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/cart/**", "/api/orders/**", "/api/reviews/**", "/api/profile/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                // .oauth2Login(oauth -> oauth
-                //         .successHandler(oAuth2LoginSuccessHandler)
-                // )
+                .oauth2Login(oauth -> oauth
+                        .successHandler(oAuth2LoginSuccessHandler)
+                )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
