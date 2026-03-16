@@ -71,7 +71,7 @@ public class SecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:3000","https://ecommerce-nine-teal-96.vercel.app"));
 
         config.setAllowedMethods(List.of(
                 "GET",
