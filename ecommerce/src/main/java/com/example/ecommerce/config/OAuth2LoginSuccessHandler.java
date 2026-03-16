@@ -43,6 +43,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         });
 
         String jwt = jwtService.generateToken(user);
-        response.sendRedirect("http://localhost:3000/oauth2/redirect?token=" + jwt);
+        response.sendRedirect("https://ecommerce-nine-teal-96.vercel.app/oauth2/redirect?token=" + jwt);
     }
 }
