@@ -8,10 +8,14 @@ import com.example.ecommerce.enums.PaymentStatus;
 import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.PaymentRepository;
 import com.example.ecommerce.service.PaymentService;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.PaymentIntentCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +56,19 @@ public class PaymentServiceImpl implements PaymentService {
                 .method(payment.getMethod())
                 .status(payment.getStatus().name())
                 .build();
+    }
+
+    @Override
+    public Map<String, String> createPaymentIntent(Double amount) {
+        try {
+            PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                    .setCurrency("inr")
+                    .setAmount(amount.longValue() * 100) // amount in paise
+                    .build();
+            PaymentIntent intent = PaymentIntent.create(params);
+            return Map.of("clientSecret", intent.getClientSecret());
+        } catch (StripeException e) {
+            throw new RuntimeException("Failed to create payment intent", e);
+        }
     }
 }

@@ -21,4 +21,8 @@ Optional<Wallet> findByUserRole(@Param("role") UserRole role);
 
     @Query("SELECT w FROM Wallet w WHERE w.user.role = 'ADMIN'")
     Optional<Wallet> findByUserRoleAdmin();
+
+
+    @Query("SELECT w FROM Wallet w WHERE w.user.role = 'ADMIN'")
+    Optional<Wallet> findAdminWallet();
 }

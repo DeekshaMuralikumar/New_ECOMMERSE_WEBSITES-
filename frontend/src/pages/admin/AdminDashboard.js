@@ -38,12 +38,13 @@ const AdminDashboard = () => {
 
   const fetchAdminData = async () => {
     try {
-      const [usersRes, prodRes, ordersRes, pendingRes, catRes] = await Promise.all([
+      const [usersRes, prodRes, ordersRes, pendingRes, catRes, revenueRes] = await Promise.all([
         axiosInstance.get('/users'),
         axiosInstance.get('/admin/products/all'),
         axiosInstance.get('/orders').catch(() => ({ data: [] })),
         axiosInstance.get('/users/pending').catch(() => ({ data: [] })),
         axiosInstance.get('/categories').catch(() => ({ data: [] })),
+        axiosInstance.get('/admin/revenue').catch(() => ({ data: { revenue: 0 } })),
       ]);
 
       const allUsers = usersRes.data || [];
@@ -54,7 +55,7 @@ const AdminDashboard = () => {
       setStats({
         users: allUsers.length,
         pendingOrders: allOrders.filter(o => o.status === 'CREATED').length,
-        revenue: 0,
+        revenue: revenueRes.data.revenue || 0,
         pendingVerifications: pendingList.length,
       });
       setProducts(allProducts);
@@ -203,7 +204,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // Messaging handlers (same as before)
+  // Messaging handlers
   const openMessaging = async () => {
     try {
       const [sellerRes, fbaRes] = await Promise.all([
@@ -300,7 +301,7 @@ const AdminDashboard = () => {
                 {[['name', 'Product Name', 'text'], ['price', 'Price', 'number'], ['availableQuantity', 'Quantity', 'number'], ['weight', 'Weight (KG)', 'number']].map(([field, label, type]) => (
                   <div key={field} className="form-group">
                     <label className="form-label">{label}</label>
-                    <input type={type} className="input-control" value={newProduct[field]} onChange={e => setNewProduct({ ...newProduct, [field]: e.target.value })} required={field !== 'weight'} />
+                    <input type={type} className="input-control" value={newProduct[field]} onChange={e => setNewProduct({ ...newProduct, [field]: e.target.value })} required={field !== 'weight'} min={type === 'number' ? "0" : undefined} step={type === 'number' ? "0.01" : undefined} />
                   </div>
                 ))}
                 <div className="form-group" style={{ gridColumn: 'span 2' }}>
@@ -452,7 +453,6 @@ const AdminDashboard = () => {
                   </td>
                   <td>{o.returnReason || '-'}</td>
                   <td style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    {/* Status-based actions */}
                     {o.status === 'CREATED' && (
                       <>
                         <button className="btn btn-outline btn-sm" onClick={() => handleConfirmOrder(o.id)}>Confirm</button>

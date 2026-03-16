@@ -212,8 +212,8 @@
 
 .in-stock-badge {
   position: absolute;
-  bottom: 0.75rem;
-  left: 0.75rem;
+  top: 15rem;
+  right: 0.75rem;
   padding: 0.25rem 0.75rem;
   background: rgba(46, 139, 87, 0.1);
   color: var(--color-success);
@@ -359,7 +359,7 @@
 }
 
 .ad-widget-container {
-  max-width: 1200px;
+  max-width: 1200px;                       
   margin: 2rem auto;
   padding: 0 1rem;
 }

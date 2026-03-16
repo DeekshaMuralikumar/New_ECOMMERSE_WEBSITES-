@@ -7,27 +7,41 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './Checkout.css';
 
-const stripePromise = loadStripe('pk_test_YOUR_PUBLIC_KEY'); // replace with your Stripe public key
+const stripePromise = loadStripe('pk_test_YOUR_PUBLIC_KEY'); // Replace with your actual Stripe publishable key
 
 const StripeForm = ({ total, onSuccess, onError }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
+  const [clientSecret, setClientSecret] = useState('');
+
+  // Fetch PaymentIntent client secret from backend
+  React.useEffect(() => {
+    if (total > 0) {
+      axiosInstance.post('/payments/create-intent', { amount: total })
+        .then(res => setClientSecret(res.data.clientSecret))
+        .catch(err => onError('Failed to initialize payment'));
+    }
+  }, [total, onError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!stripe || !elements) return;
+    if (!stripe || !elements || !clientSecret) return;
+
     setProcessing(true);
     const cardElement = elements.getElement(CardElement);
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
+      }
     });
+
     if (error) {
       onError(error.message);
       setProcessing(false);
-    } else {
-      onSuccess(paymentMethod.id);
+    } else if (paymentIntent.status === 'succeeded') {
+      onSuccess(paymentIntent.id);
     }
   };
 
@@ -40,7 +54,7 @@ const StripeForm = ({ total, onSuccess, onError }) => {
         type="submit"
         className="btn btn-primary"
         style={{ width: '100%', marginTop: '1rem' }}
-        disabled={!stripe || processing}
+        disabled={!stripe || processing || !clientSecret}
       >
         {processing ? 'Processing...' : `Pay ₹${total.toFixed(2)}`}
       </button>
@@ -64,7 +78,7 @@ const CheckoutPage = () => {
     );
   }
 
-  const placeOrder = async (paymentMethod) => {
+  const placeOrder = async (paymentMethod, paymentIntentId = null) => {
     setLoading(true);
     setError(null);
     try {
@@ -74,6 +88,7 @@ const CheckoutPage = () => {
           quantity: item.quantity,
         })),
         paymentMethod,
+        paymentIntentId, // Include for Stripe payments
       };
       await axiosInstance.post(`/orders/${user.id}`, orderData);
       clearCart();
@@ -87,7 +102,7 @@ const CheckoutPage = () => {
   };
 
   const handleCOD = () => placeOrder('COD');
-  const handleStripeSuccess = (paymentId) => placeOrder('STRIPE');
+  const handleStripeSuccess = (paymentIntentId) => placeOrder('STRIPE', paymentIntentId);
 
   const total = getCartTotal();
 
