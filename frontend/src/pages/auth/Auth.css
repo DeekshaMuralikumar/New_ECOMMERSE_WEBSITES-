@@ -3,21 +3,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f0fdf4 0%, #e0e7ff 100%);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf0 100%);
   padding: 2rem;
 }
 
 .auth-card {
   width: 100%;
   max-width: 450px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--color-bg-primary);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   padding: 2.5rem;
   text-align: center;
+  border: 1px solid var(--color-border-light);
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .auth-header {
@@ -25,11 +35,10 @@
 }
 
 .auth-header h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--color-text-primary);
   margin-bottom: 0.5rem;
   font-weight: 700;
-  letter-spacing: -0.025em;
 }
 
 .auth-header p {
@@ -46,27 +55,51 @@
 }
 
 .auth-form .input-control {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
   font-size: 1rem;
+  width: 100%;
+  transition: all var(--transition-fast);
+}
+
+.auth-form .input-control:focus {
+  border-color: var(--color-primary);
+  background: var(--color-bg-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
 .auth-submit-btn {
   width: 100%;
   padding: 0.85rem;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   margin-top: 1rem;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(42, 157, 143, 0.2);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .auth-divider {
   display: flex;
   align-items: center;
   margin: 2rem 0;
-  color: var(--color-text-secondary);
+  color: var(--color-text-tertiary);
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -76,7 +109,8 @@
 .auth-divider::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid var(--color-border);
+  height: 1px;
+  background: var(--color-border-light);
 }
 
 .auth-divider::before {
@@ -102,6 +136,7 @@
 .auth-link {
   color: var(--color-primary);
   font-weight: 600;
+  text-decoration: none;
   transition: color var(--transition-fast);
 }
 
@@ -111,48 +146,67 @@
 }
 
 .error-message {
-  background-color: #fef2f2;
+  background: var(--color-danger-light);
   color: var(--color-danger);
   padding: 0.75rem;
   border-radius: var(--radius-md);
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
-  border: 1px solid #fecaca;
+  border: 1px solid rgba(214, 69, 80, 0.2);
   text-align: left;
+  animation: shake 0.4s ease;
 }
 
-/* Role Selector Tabs */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
 .role-selector {
   display: flex;
-  background: #f1f5f9;
-  border-radius: var(--radius-lg);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
   padding: 0.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border-light);
 }
 
 .role-tab {
   flex: 1;
-  padding: 0.6rem;
+  padding: 0.7rem 0.5rem;
   text-align: center;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text-secondary);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .role-tab.active {
-  background: var(--color-surface);
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: white;
   box-shadow: var(--shadow-sm);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.role-tab:not(.active):hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
 }
 
-.auth-card {
-  animation: fadeIn 0.4s ease-out;
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+  .auth-header h1 {
+    font-size: 1.75rem;
+  }
+  .role-selector {
+    flex-wrap: wrap;
+    border-radius: var(--radius-lg);
+  }
+  .role-tab {
+    border-radius: var(--radius-sm);
+  }
 }

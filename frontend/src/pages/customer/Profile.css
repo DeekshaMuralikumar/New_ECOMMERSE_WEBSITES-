@@ -1,24 +1,28 @@
 .profile-container {
   padding: 3rem 1rem;
 }
+
 .profile-layout {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
 }
+
 @media (min-width: 768px) {
   .profile-layout {
     grid-template-columns: 280px 1fr;
   }
 }
+
 .profile-sidebar {
-  background: var(--color-surface);
+  background: var(--color-bg-primary);
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   height: fit-content;
 }
+
 .profile-avatar-large {
   width: 80px;
   height: 80px;
@@ -32,23 +36,28 @@
   font-weight: 700;
   margin: 0 auto 1.5rem;
 }
+
 .profile-name {
   text-align: center;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 0.25rem;
+  color: var(--color-text-primary);
 }
+
 .profile-email {
   text-align: center;
   color: var(--color-text-secondary);
   font-size: 0.95rem;
   margin-bottom: 2rem;
 }
+
 .profile-nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
+
 .profile-nav-btn {
   width: 100%;
   text-align: left;
@@ -65,95 +74,112 @@
   align-items: center;
   gap: 0.75rem;
 }
+
 .profile-nav-btn:hover {
-  background: #f8fafc;
+  background: var(--color-bg-tertiary);
   color: var(--color-primary);
 }
+
 .profile-nav-btn.active {
-  background: #eff6ff;
+  background: var(--color-primary-light);
   color: var(--color-primary);
   font-weight: 600;
 }
+
 .profile-content {
-  background: var(--color-surface);
+  background: var(--color-bg-primary);
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
 }
+
 .profile-section-title {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-primary);
 }
-/* Orders */
+
 .orders-list {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
+
 .order-card {
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   overflow: hidden;
 }
+
 .order-card-header {
-  background: #f8fafc;
+  background: var(--color-bg-secondary);
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
 }
+
 .order-id {
   font-weight: 600;
   color: var(--color-primary);
 }
+
 .order-date {
   color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
+
 .order-status-badge {
   padding: 0.25rem 0.75rem;
   border-radius: var(--radius-full);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
 }
-.status-CREATED { background: #e0e7ff; color: #3730a3; }
-.status-CONFIRMED { background: #dbeafe; color: #1e40af; }
-.status-SHIPPED { background: #fef3c7; color: #92400e; }
-.status-DELIVERED { background: #d1fae5; color: #065f46; }
-.status-CANCELLED { background: #fee2e2; color: #991b1b; }
+
+.status-CREATED { background: #E0E7FF; color: #3730A3; }
+.status-CONFIRMED { background: #DBEAFE; color: #1E40AF; }
+.status-SHIPPED { background: #FEF3C7; color: #92400E; }
+.status-DELIVERED { background: #D1FAE5; color: #065F46; }
+.status-CANCELLED { background: #FEE2E2; color: #991B1B; }
+
 .order-card-body {
   padding: 1.5rem;
 }
+
 .order-item-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
+
 .order-item-row {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+
 .order-item-img {
   width: 60px;
   height: 60px;
   object-fit: contain;
-  background: #f8fafc;
+  background: var(--color-bg-secondary);
   border-radius: var(--radius-sm);
+  padding: 0.25rem;
 }
+
 .order-actions {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-light);
 }
