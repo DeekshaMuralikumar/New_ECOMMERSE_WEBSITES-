@@ -9,7 +9,13 @@ const UserProfile = () => {
   const [activeTab, setActiveTab] = useState('orders');
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [address, setAddress] = useState(user?.address || '');
+  const [address, setAddress] = useState(user?.address || {
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: ''
+  });
   const [updating, setUpdating] = useState(false);
   const [showRateModal, setShowRateModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -63,10 +69,14 @@ const UserProfile = () => {
   };
 
   const handleUpdateAddress = async () => {
-    if (!address.trim()) return;
+    if (!addressData.street.trim() || !addressData.city.trim() || !addressData.state.trim() ||
+      !addressData.zipCode.trim() || !addressData.country.trim()) {
+      alert('Please fill in all address fields');
+      return;
+    }
     setUpdating(true);
     try {
-      await axiosInstance.put(`/users/${user.id}/address`, { address });
+      await axiosInstance.put(`/users/${user.id}/address`, addressData);
       alert('Address updated');
       await updateUser();
     } catch (err) {
@@ -177,10 +187,57 @@ const UserProfile = () => {
                   <label className="form-label">Email</label>
                   <input className="input-control" value={user?.email || ''} readOnly disabled />
                 </div>
+
                 <div className="form-group">
-                  <label className="form-label">Delivery Address</label>
-                  <textarea className="input-control" value={address} onChange={e => setAddress(e.target.value)} rows="3" />
+                  <label className="form-label">Street Address</label>
+                  <input
+                    className="input-control"
+                    value={addressData.street}
+                    onChange={e => setAddressData({ ...addressData, street: e.target.value })}
+                    placeholder="Enter street address"
+                  />
                 </div>
+
+                <div className="form-group">
+                  <label className="form-label">City</label>
+                  <input
+                    className="input-control"
+                    value={addressData.city}
+                    onChange={e => setAddressData({ ...addressData, city: e.target.value })}
+                    placeholder="Enter city"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">State</label>
+                  <input
+                    className="input-control"
+                    value={addressData.state}
+                    onChange={e => setAddressData({ ...addressData, state: e.target.value })}
+                    placeholder="Enter state"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">ZIP Code</label>
+                  <input
+                    className="input-control"
+                    value={addressData.zipCode}
+                    onChange={e => setAddressData({ ...addressData, zipCode: e.target.value })}
+                    placeholder="Enter ZIP code"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Country</label>
+                  <input
+                    className="input-control"
+                    value={addressData.country}
+                    onChange={e => setAddressData({ ...addressData, country: e.target.value })}
+                    placeholder="Enter country"
+                  />
+                </div>
+
                 <button type="button" className="btn btn-primary" onClick={handleUpdateAddress} disabled={updating}>
                   {updating ? 'Updating...' : 'Update Address'}
                 </button>
