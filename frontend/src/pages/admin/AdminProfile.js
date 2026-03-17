@@ -27,10 +27,11 @@ const AdminProfile = () => {
               <User size={20} /> Personal Information
             </h3>
             <div className="form-group">
-              <label className="form-label">Email</label>
-              <div style={{padding: '0.8rem', background: '#f8fafc', borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+              <label className="form-label">Email
+                <div style={{padding: '0.8rem', background: '#f8fafc', borderRadius: 'var(--radius-sm)', display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
                 <Mail size={16} /> {user?.email}
               </div>
+              </label>
             </div>
           </div>
 

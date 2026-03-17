@@ -107,7 +107,7 @@ const AdminDashboard = () => {
       await axiosInstance.post(`/products?ownerId=${user.id}`, {
         ...newProduct,
         price: Number.Number.parseFloat(newProduct.price),
-        availableQuantity: parseInt(newProduct.availableQuantity),
+        availableQuantity: Number.parseInt(newProduct.availableQuantity),
         weight: Number.parseFloat(newProduct.weight) || 0,
       });
       setShowAddModal(false);
@@ -300,20 +300,24 @@ const AdminDashboard = () => {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 {[['name', 'Product Name', 'text'], ['price', 'Price', 'number'], ['availableQuantity', 'Quantity', 'number'], ['weight', 'Weight (KG)', 'number']].map(([field, label, type]) => (
                   <div key={field} className="form-group">
-                    <label className="form-label">{label}</label>
-                    <input type={type} className="input-control" value={newProduct[field]} onChange={e => setNewProduct({ ...newProduct, [field]: e.target.value })} required={field !== 'weight'} min={type === 'number' ? "0" : undefined} step={type === 'number' ? "0.01" : undefined} />
+                    <label className="form-label">{label}
+                      <input type={type} className="input-control" value={newProduct[field]} onChange={e => setNewProduct({ ...newProduct, [field]: e.target.value })} required={field !== 'weight'} min={type === 'number' ? "0" : undefined} step={type === 'number' ? "0.01" : undefined} />
+                    </label>
                   </div>
                 ))}
                 <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                  <label className="form-label">Category</label>
-                  <select className="input-control" value={newProduct.categoryId} onChange={e => setNewProduct({ ...newProduct, categoryId: e.target.value })} required>
+                  <label className="form-label">Category
+                    <select className="input-control" value={newProduct.categoryId} onChange={e => setNewProduct({ ...newProduct, categoryId: e.target.value })} required>
                     <option value="">Select Category</option>
                     {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                   </select>
+                  </label>
                 </div>
                 <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                  <label className="form-label">Description</label>
-                  <textarea className="input-control" value={newProduct.description} onChange={e => setNewProduct({ ...newProduct, description: e.target.value })} required />
+                  <label className="form-label">Description
+                    <textarea className="input-control" value={newProduct.description} onChange={e => setNewProduct({ ...newProduct, description: e.target.value })} required />
+                  </label>
+                  
                 </div>
               </div>
               <button type="submit" className="btn btn-success">Publish Product</button>
@@ -602,8 +606,8 @@ const AdminDashboard = () => {
                 <>
                   <p>Order #{selectedOrder.id}</p>
                   <div className="form-group">
-                    <label>Refund Amount (₹)</label>
-                    <input
+                    <label>Refund Amount (₹)
+                      <input
                       type="number"
                       className="input-control"
                       value={refundAmount}
@@ -612,6 +616,7 @@ const AdminDashboard = () => {
                       min="0"
                       max={selectedOrder.totalAmount}
                     />
+                    </label>
                   </div>
                   <button className="btn btn-primary" onClick={handleProcessRefund} style={{ width: '100%' }}>Process Refund</button>
                 </>
