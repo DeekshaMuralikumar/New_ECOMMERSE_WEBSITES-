@@ -149,10 +149,10 @@ const CheckoutPage = () => {
                   checked={paymentMethod === 'COD'}
                   onChange={() => setPaymentMethod('COD')}
                 />
+              </label>
                 <div>
                   <strong>Cash on Delivery</strong>
                 </div>
-              </label>
               <label className={`payment-option ${paymentMethod === 'STRIPE' ? 'selected' : ''}`}>
                 <input
                   type="radio"
@@ -161,10 +161,10 @@ const CheckoutPage = () => {
                   checked={paymentMethod === 'STRIPE'}
                   onChange={() => setPaymentMethod('STRIPE')}
                 />
+              </label>
                 <div>
                   <strong>Credit Card (Stripe)</strong>
                 </div>
-              </label>
             </div>
 
             {paymentMethod === 'STRIPE' && (

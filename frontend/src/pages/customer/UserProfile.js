@@ -200,58 +200,70 @@ const UserProfile = () => {
               <h2 className="profile-section-title">Account Settings</h2>
               <form className="auth-form" style={{ maxWidth: '500px' }}>
                 <div className="form-group">
-                  <label className="form-label">Email</label>
-                  <input className="input-control" value={user?.email || ''} readOnly disabled />
+                  <label className="form-label">Email
+                    <input className="input-control" value={user?.email || ''} readOnly disabled />
+                  </label>
+                  
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Street Address</label>
-                  <input
+                  <label className="form-label">Street Address
+                    <input
                     className="input-control"
                     value={addressData.street}
                     onChange={e => setAddressData({ ...addressData, street: e.target.value })}
                     placeholder="Enter street address"
                   />
+                  </label>
+                  
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">City</label>
-                  <input
+                  <label className="form-label">City
+                    <input
                     className="input-control"
                     value={addressData.city}
                     onChange={e => setAddressData({ ...addressData, city: e.target.value })}
                     placeholder="Enter city"
                   />
+                  </label>
+                  
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">State</label>
-                  <input
+                  <label className="form-label">State
+                    <input
                     className="input-control"
                     value={addressData.state}
                     onChange={e => setAddressData({ ...addressData, state: e.target.value })}
                     placeholder="Enter state"
                   />
+                  </label>
+                  
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">ZIP Code</label>
-                  <input
+                  <label className="form-label">ZIP Code
+                    <input
                     className="input-control"
                     value={addressData.zipCode}
                     onChange={e => setAddressData({ ...addressData, zipCode: e.target.value })}
                     placeholder="Enter ZIP code"
                   />
+                  </label>
+                  
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Country</label>
-                  <input
+                  <label className="form-label">Country
+                    <input
                     className="input-control"
                     value={addressData.country}
                     onChange={e => setAddressData({ ...addressData, country: e.target.value })}
                     placeholder="Enter country"
                   />
+                  </label>
+                  
                 </div>
 
                 <button type="button" className="btn btn-primary" onClick={handleUpdateAddress} disabled={updating}>
@@ -270,18 +282,22 @@ const UserProfile = () => {
               <button onClick={() => setShowRateModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={22} /></button>
             </div>
             <div className="form-group">
-              <label>Rating</label>
-              <select className="input-control" value={rating} onChange={e => setRating(parseInt(e.target.value))}>
+              <label>Rating
+                <select className="input-control" value={rating} onChange={e => setRating(Number.parseInt(e.target.value))}>
                 <option value="5">5 - Excellent</option>
                 <option value="4">4 - Good</option>
                 <option value="3">3 - Average</option>
                 <option value="2">2 - Poor</option>
                 <option value="1">1 - Terrible</option>
               </select>
+              </label>
+              
             </div>
             <div className="form-group">
-              <label>Comment</label>
-              <textarea className="input-control" value={comment} onChange={e => setComment(e.target.value)} rows="4" />
+              <label>Comment
+                <textarea className="input-control" value={comment} onChange={e => setComment(e.target.value)} rows="4" />
+              </label>
+              
             </div>
             <button className="btn btn-primary" onClick={handleSubmitReview}>Submit</button>
           </div>
