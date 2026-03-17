@@ -524,7 +524,7 @@ const AdminDashboard = () => {
                   <div
                     key={s.id}
                     className={`seller-item ${selectedSeller?.id === s.id ? 'selected' : ''}`}
-                    onClick={() => openChat(s)}
+                    onClick={() => openChat(s)} role="button"
                   >
                     <div className="seller-name">{s.name || s.email}</div>
                     <div className="seller-role">{s.role}</div>

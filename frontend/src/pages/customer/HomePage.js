@@ -133,7 +133,7 @@ const HomePage = () => {
                 <div
                   key={product.id}
                   className="product-card"
-                  onClick={() => navigate(`/product/${product.id}`)}
+                  onClick={() => navigate(`/product/${product.id}`)} role="button"
                 >
                   <div className="product-image-wrapper">
                     <img

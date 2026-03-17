@@ -72,9 +72,9 @@ const RegisterPage = () => {
         </div>
         {error && <div className="error-message">{error}</div>}
         <div className="role-selector">
-          <div className={`role-tab ${role === 'CUSTOMER' ? 'active' : ''}`} onClick={() => setRole('CUSTOMER')}>Customer</div>
-          <div className={`role-tab ${role === 'SELLER' ? 'active' : ''}`} onClick={() => setRole('SELLER')}>Seller</div>
-          <div className={`role-tab ${role === 'FBA_MERCHANT' ? 'active' : ''}`} onClick={() => setRole('FBA_MERCHANT')}>FBA Merchant</div>
+          <div className={`role-tab ${role === 'CUSTOMER' ? 'active' : ''}`} onClick={() => setRole('CUSTOMER')} role="button">Customer</div>
+          <div className={`role-tab ${role === 'SELLER' ? 'active' : ''}`} onClick={() => setRole('SELLER')} role="button">Seller</div>
+          <div className={`role-tab ${role === 'FBA_MERCHANT' ? 'active' : ''}`} onClick={() => setRole('FBA_MERCHANT')} role="button">FBA Merchant</div>
         </div>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
