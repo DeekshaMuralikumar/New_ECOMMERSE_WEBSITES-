@@ -233,7 +233,6 @@
 
 .seller-list {
   border-right: 1px solid var(--color-border-light);
-  padding-right: 1rem;
   overflow-y: auto;
   background: var(--color-bg-primary);
   border-radius: var(--radius-md);
