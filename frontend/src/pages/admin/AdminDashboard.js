@@ -106,9 +106,9 @@ const AdminDashboard = () => {
     try {
       await axiosInstance.post(`/products?ownerId=${user.id}`, {
         ...newProduct,
-        price: parseFloat(newProduct.price),
+        price: Number.Number.parseFloat(newProduct.price),
         availableQuantity: parseInt(newProduct.availableQuantity),
-        weight: parseFloat(newProduct.weight) || 0,
+        weight: Number.parseFloat(newProduct.weight) || 0,
       });
       setShowAddModal(false);
       setNewProduct({ name: '', description: '', price: '', availableQuantity: '', weight: '', categoryId: '' });
@@ -607,7 +607,7 @@ const AdminDashboard = () => {
                       type="number"
                       className="input-control"
                       value={refundAmount}
-                      onChange={e => setRefundAmount(parseFloat(e.target.value))}
+                      onChange={e => setRefundAmount(Number.parseFloat(e.target.value))}
                       step="0.01"
                       min="0"
                       max={selectedOrder.totalAmount}
