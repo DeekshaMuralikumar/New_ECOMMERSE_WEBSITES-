@@ -78,21 +78,27 @@ const RegisterPage = () => {
         </div>
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Full Name</label>
-            <input type="text" name="name" className="input-control" value={formData.name} onChange={handleChange} required />
+            <label className="form-label">Full Name
+              <input type="text" name="name" className="input-control" value={formData.name} onChange={handleChange} required />
+            </label>
           </div>
           <div className="form-group">
-            <label className="form-label">Email</label>
-            <input type="email" name="email" className="input-control" value={formData.email} onChange={handleChange} required />
+            <label className="form-label">Email
+              <input type="email" name="email" className="input-control" value={formData.email} onChange={handleChange} required />
+            </label>
           </div>
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
             <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
-              <label className="form-label">Password</label>
-              <input type="password" name="password" className="input-control" value={formData.password} onChange={handleChange} minLength={6} required />
+              <label className="form-label">Password
+                 <input type="password" name="password" className="input-control" value={formData.password} onChange={handleChange} minLength={6} required />
+              </label>
+             
             </div>
             <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
-              <label className="form-label">Confirm</label>
-              <input type="password" name="confirmPassword" className="input-control" value={formData.confirmPassword} onChange={handleChange} required />
+              <label className="form-label">Confirm
+                <input type="password" name="confirmPassword" className="input-control" value={formData.confirmPassword} onChange={handleChange} required />
+              </label>
+              
             </div>
           </div>
           <button type="submit" className="btn btn-primary auth-submit-btn" disabled={loading}>
