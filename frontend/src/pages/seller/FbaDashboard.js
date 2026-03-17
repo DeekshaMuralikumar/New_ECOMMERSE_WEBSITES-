@@ -61,9 +61,9 @@ const FbaDashboard = () => {
     try {
       await axiosInstance.post(`/products?ownerId=${user.id}`, {
         ...newProduct,
-        price: parseFloat(newProduct.price),
-        availableQuantity: parseInt(newProduct.availableQuantity),
-        weight: parseFloat(newProduct.weight) || 0,
+        price: Number.parseFloat(newProduct.price),
+        availableQuantity: Number.parseInt(newProduct.availableQuantity),
+        weight: Number.parseFloat(newProduct.weight) || 0,
       });
       setShowAddModal(false);
       setNewProduct({ name: '', description: '', price: '', availableQuantity: '', weight: '', categoryId: '' });
@@ -173,31 +173,38 @@ const FbaDashboard = () => {
            <form className="auth-form" onSubmit={handleAddProduct} style={{background: '#f8fafc', padding: '1.5rem', borderRadius: 'var(--radius-md)', marginBottom: '2rem'}}>
             <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem'}}>
               <div className="form-group">
-                <label className="form-label">Product Name</label>
-                <input type="text" className="input-control" value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})} required />
+                <label className="form-label">Product Name
+                       <input type="text" className="input-control" value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})} required />
+                </label>
               </div>
               <div className="form-group">
-                <label className="form-label">Merchant Price</label>
-                <input type="number" className="input-control" value={newProduct.price} onChange={e => setNewProduct({...newProduct, price: e.target.value})} required />
+                <label className="form-label">Merchant Price
+                                  <input type="number" className="input-control" value={newProduct.price} onChange={e => setNewProduct({...newProduct, price: e.target.value})} required />
+                </label>
               </div>
               <div className="form-group">
-                <label className="form-label">Quantity Provided</label>
-                <input type="number" className="input-control" value={newProduct.availableQuantity} onChange={e => setNewProduct({...newProduct, availableQuantity: e.target.value})} required />
+                <label className="form-label">Quantity Provided
+                                  <input type="number" className="input-control" value={newProduct.availableQuantity} onChange={e => setNewProduct({...newProduct, availableQuantity: e.target.value})} required />
+                </label>
               </div>
               <div className="form-group">
-                <label className="form-label">Total Weight (KG)</label>
-                <input type="number" className="input-control" value={newProduct.weight} onChange={e => setNewProduct({...newProduct, weight: e.target.value})} required />
+                <label className="form-label">Total Weight (KG)
+                                  <input type="number" className="input-control" value={newProduct.weight} onChange={e => setNewProduct({...newProduct, weight: e.target.value})} required />
+                </label>
               </div>
               <div className="form-group" style={{gridColumn: 'span 2'}}>
-                <label className="form-label">Category</label>
-                <select className="input-control" value={newProduct.categoryId} onChange={e => setNewProduct({...newProduct, categoryId: e.target.value})} required>
+                <label className="form-label">Category
+                  <select className="input-control" value={newProduct.categoryId} onChange={e => setNewProduct({...newProduct, categoryId: e.target.value})} required>
                   <option value="">Select Category</option>
                   {Array.isArray(categories) && categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
+                </label>
+                
               </div>
               <div className="form-group" style={{gridColumn: 'span 2'}}>
-                <label className="form-label">Description</label>
-                <textarea className="input-control" value={newProduct.description} onChange={e => setNewProduct({...newProduct, description: e.target.value})} required />
+                <label className="form-label">Description
+                                  <textarea className="input-control" value={newProduct.description} onChange={e => setNewProduct({...newProduct, description: e.target.value})} required />
+                </label>
               </div>
             </div>
             <button type="submit" className="btn btn-success">Submit to Warehouse</button>

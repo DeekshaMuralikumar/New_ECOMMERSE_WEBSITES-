@@ -156,7 +156,7 @@ const Navbar = () => {
 
                 {isProfileMenuOpen && (
                   <>
-                    <div className="profile-menu-backdrop" onClick={() => setIsProfileMenuOpen(false)} />
+                    <div className="profile-menu-backdrop" onClick={() => setIsProfileMenuOpen(false)} role="button" />
                     <div className="profile-menu">
                       <div className="profile-menu-header">
                         <div className="profile-menu-avatar">
