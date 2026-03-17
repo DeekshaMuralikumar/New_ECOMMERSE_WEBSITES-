@@ -42,24 +42,28 @@ const LoginPage = () => {
         {error && <div className="error-message">{error}</div>}
         <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Email</label>
-            <input
+            <label className="form-label">Email
+                          <input
               type="email"
               className="input-control"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            </label>
+
           </div>
           <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
+            <label className="form-label">Password
+              <input
               type="password"
               className="input-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            </label>
+            
           </div>
           <button type="submit" className="btn btn-primary auth-submit-btn" disabled={loading}>
             {loading ? 'Signing In...' : 'Sign In'}
